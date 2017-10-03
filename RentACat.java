@@ -18,7 +18,10 @@ public class RentACat {
     
     public boolean returnCat(Cat c) {
 	// TODO
-	return false;
+		if(!c.getRented()) {
+			return false; 
+		}	
+		return true;
     }
 
     /**
@@ -35,7 +38,10 @@ public class RentACat {
     
     public boolean rentCat(Cat c) {
 	// TODO
-	return false;
+		if(c.getRented()) {
+			return false; 
+		}
+		return true;
     }
 
 
@@ -54,7 +60,14 @@ public class RentACat {
     
     public String listCats(ArrayList<Cat> catList) {
 	// TODO
-	return "WRITE CODE FOR THIS";
+		StringBuilder rentableList = new StringBuilder(""); 
+		for(Cat c: catList) {
+			if(!c.getRented()) {
+				rentableList.append(c.toString());
+				rentableList.append("\n");	
+			}	
+		}
+		return rentableList.toString();
     }
 
     /**
