@@ -15,12 +15,12 @@ public class RentACat {
      * @param Cat the cat to return
      * @return boolean false if cat was not rented out, true otherwise
      */
-    
+
     public boolean returnCat(Cat c) {
 	// TODO
 		if(!c.getRented()) {
-			return false; 
-		}	
+			return false;
+		}
 		return true;
     }
 
@@ -35,11 +35,11 @@ public class RentACat {
      * @return boolean false if cat was rented out, true otherwise
      */
 
-    
+
     public boolean rentCat(Cat c) {
 	// TODO
 		if(c.getRented()) {
-			return false; 
+			return false;
 		}
 		return true;
     }
@@ -47,7 +47,7 @@ public class RentACat {
 
     /**
      * Given a list of cats, create a String list using the .toString()
-     * method of each NON-RENTED Cat object in the list.  That is, 
+     * method of each NON-RENTED Cat object in the list.  That is,
      * it should only add cats who are available to be rented.
      * These cats should be separated by "\n" characters (line feeds).
      * Example:
@@ -57,15 +57,15 @@ public class RentACat {
      * @param ArrayList<Cat> list of cats to print (filtering out rented ones)
      * @return "\n"-delimited list of rentable cats
      */
-    
+
     public String listCats(ArrayList<Cat> catList) {
 	// TODO
-		StringBuilder rentableList = new StringBuilder(""); 
+		StringBuilder rentableList = new StringBuilder("");
 		for(Cat c: catList) {
 			if(!c.getRented()) {
 				rentableList.append(c.toString());
-				rentableList.append("\n");	
-			}	
+				rentableList.append("\n");
+			}
 		}
 		return rentableList.toString();
     }
@@ -79,10 +79,17 @@ public class RentACat {
      * @param ArrayList<Cat> list of cats
      * @return true if cat exists in list, false otherwise
      */
-    
+
     public boolean catExists(int id, ArrayList<Cat> catList) {
 	// TODO
-	return false;
+        if(catList != null && !catList.isEmpty()) {
+            for(Cat c : catList) {
+                if(id == c.getId()) {
+                    return true;
+                }
+            }
+        }
+	    return false;
     }
 
     /**
@@ -125,14 +132,14 @@ public class RentACat {
      * @param ArrayList<Cat> catList - list of cats to search
      * @return Cat searched for if exists, null otherwise
      */
-    
+
     public Cat getCat(int id, ArrayList<Cat> catList) {
-	
+
 	// null / zero-element check
 	if (catList == null || catList.size() == 0) {
 	    return null;
 	}
-	
+
 	// Loop through every cat in the cat list
 	for (Cat c : catList) {
 	    // If we found a cat whose id matches the id
@@ -156,20 +163,20 @@ public class RentACat {
     public static void main(String[] args) {
 
 	RentACat rc = new RentACat();
-	
+
 	rc._cats.add(new Cat(1, "Jennyanydots"));
 	rc._cats.add(new Cat(2, "Old Deuteronomy"));
 	rc._cats.add(new Cat(3, "Mistoffelees"));
 
 	// Create a local copy for this method
 	ArrayList<Cat> cats = rc._cats;
-	
+
 	Scanner sc = new Scanner(System.in);
 	boolean validCat = false;
-	
+
 	int option;
 	boolean keepGoing = true;
-	
+
 	while (keepGoing) {
 	    validCat = false;
 	    System.out.print("Option [1,2,3,4] >");
@@ -245,7 +252,6 @@ public class RentACat {
 	}
 
 	System.out.println("Closing up shop for the day!");
-		  
+
     }
 }
-
