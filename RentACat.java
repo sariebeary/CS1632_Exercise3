@@ -72,6 +72,9 @@ public class RentACat {
 				rentableList.append("\n");
 			}
 		}
+		if(rentableList.length() > 0){
+			rentableList.deleteCharAt(rentableList.length() - 1); // remove last new line
+		}
 		return rentableList.toString();
     }
 
@@ -202,7 +205,7 @@ public class RentACat {
 				throw new NumberFormatException();
 			    } else if (c.getRented()) {
 				System.out.println("Sorry, " + c.getName() + " is not here!");
-				validCat = true;
+				validCat = false; //modified by shb
 			    } else {
 				rc.rentCat(c);
 				System.out.println(c.getName() + " has been rented.");
@@ -225,7 +228,7 @@ public class RentACat {
 				throw new NumberFormatException();
 			    } else if (!c.getRented()) {
 				System.out.println(c.getName() + " is already here!");
-				validCat = true;
+				validCat = true; 
 			    } else {
 				rc.returnCat(c);
 				System.out.println("Welcome back," + c.getName() + "!");
