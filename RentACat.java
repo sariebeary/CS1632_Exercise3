@@ -17,10 +17,13 @@ public class RentACat {
      */
 
     public boolean returnCat(Cat c) {
-	// TODO
-		if(!c.getRented()) {
+		if(c == null) {
+			return false; // cat does not exist
+		}
+		if(!c.getRented()) { 
 			return false;
 		}
+		c.returnCat();
 		return true;
     }
 
@@ -37,10 +40,13 @@ public class RentACat {
 
 
     public boolean rentCat(Cat c) {
-	// TODO
+		if(c == null) {
+			return false; // cat does not exist
+		}
 		if(c.getRented()) {
 			return false;
 		}
+		c.rentCat();
 		return true;
     }
 
@@ -59,7 +65,6 @@ public class RentACat {
      */
 
     public String listCats(ArrayList<Cat> catList) {
-	// TODO
 		StringBuilder rentableList = new StringBuilder("");
 		for(Cat c: catList) {
 			if(!c.getRented()) {
@@ -81,13 +86,11 @@ public class RentACat {
      */
 
     public boolean catExists(int id, ArrayList<Cat> catList) {
-	// TODO
+		// null / zero-element check
         if(catList != null && !catList.isEmpty()) {
-            for(Cat c : catList) {
-                if(id == c.getId()) {
-                    return true;
-                }
-            }
+            if(getCat(id, catList) != null) {
+				return true; 
+			}
         }
 	    return false;
     }
