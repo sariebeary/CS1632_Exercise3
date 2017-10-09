@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 
 import org.mockito.*;
 
-public static RentACatTest {
+public class RentACatTest {
 
     // TESTS FOR RENTACAT.JAVA
     // At least 1 test for each method
