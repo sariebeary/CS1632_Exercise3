@@ -89,18 +89,10 @@ public class RentACat {
      */
 
     public boolean catExists(int id, ArrayList<Cat> catList) {
-		// null / zero-element check
-        if(catList == null || catList.isEmpty()) {
-            return false;
-        }
-        for (Cat c : catList) {
-    	    // If we found a cat whose id matches the id
-    	    // of the argument, then cat exists
-    	    if (c.getId() == id) {
-    		return true;
-    	    }
-    	}
-	    return false;
+		if(getCat(id, catList) == null){
+			return false;
+		}
+	    return true;
     }
 
     /**
