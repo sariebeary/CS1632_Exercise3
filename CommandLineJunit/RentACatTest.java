@@ -20,7 +20,9 @@ public class RentACatTest {
 	assertNotNull(rc);
     }
 
-    /** tests for "returnCat(Cat c)" **/
+    /** 
+	 * TESTS for "returnCat(Cat c)" 
+	 **/
 
 	// When returning a rented cat, the .returnCat() method should be called on the cat object and return true
 	@Test
@@ -39,7 +41,9 @@ public class RentACatTest {
 		assertFalse(rc.returnCat(c));
 	}
 
-    /** tests for "rentCat(Cat c)" **/
+    /** 
+	 * TESTS for "rentCat(Cat c)" 
+	 **/
 
 	// When renting an available cat, the .rentCat() method should be called on the cat object and return true
 	@Test
@@ -58,7 +62,9 @@ public class RentACatTest {
 		assertFalse(rc.rentCat(c));
 	}
 
-    /** tests for "listCats(ArrayList<Cat> catList)" **/
+    /** 
+	 * TESTS FOR "listCats(ArrayList<Cat> catList)" 
+	 **/
 
 	// If no cats are available, an empty string should be returned list by listCats
 	@Test
@@ -100,7 +106,9 @@ public class RentACatTest {
 		assertEquals(rc.listCats(cats), "c1\nc3");
 	}
 
-    /** tests for "catExists(int id, ArrayList<Cat> catList)" **/
+    /** 
+	 * TESTS FOR "catExists(int id, ArrayList<Cat> catList)" 
+	 **/
 
 	// test that given a list of cats and id, return true if a cat exists in the list
 	@Test
@@ -119,23 +127,95 @@ public class RentACatTest {
 
 		assertTrue(rc.catExists(testId, catList));
 	}
-
-	// test that when given an empty list of cats, returns false
+	
+	// test that given a list of cats and id, return false for a cat not in the list
 	@Test
 	public void testCatExistsReturnsFalse() {
+		int testId = 7;
+		Cat mockCat1 = Mockito.mock(Cat.class);
+		Cat mockCat2 = Mockito.mock(Cat.class);
+		Cat mockCat3 = Mockito.mock(Cat.class);
+		ArrayList<Cat> catList = new ArrayList<Cat>();
+		catList.add(mockCat1);
+		catList.add(mockCat2);
+		catList.add(mockCat3);
+		Mockito.when(mockCat1.getId()).thenReturn(1);
+		Mockito.when(mockCat2.getId()).thenReturn(2);
+		Mockito.when(mockCat3.getId()).thenReturn(3);
+
+		assertFalse(rc.catExists(testId, catList));
+	}
+
+	// test that when given an empty list of cats, returns false for catExists
+	@Test
+	public void testCatExistsEmpty() {
 		int testId = 0;
 		ArrayList<Cat> catList = new ArrayList<Cat>();
 		assertFalse(rc.catExists(testId, catList));
 	}
+	/** 
+	 * TESTS FOR "catAvailable(int id, ArrayList<Cat> catList)" 
+	 **/ 
+	
+	// when a cat is available to rent, catAvailable should return false 
+	@Test
+	public void testCatAvailable() {
+		int testId = 1;
+		Cat c1 = Mockito.mock(Cat.class);
+		Cat c2 = Mockito.mock(Cat.class);
+		Cat c3 = Mockito.mock(Cat.class);
+		ArrayList<Cat> catList = new ArrayList<Cat>();
+		catList.add(c1);
+		catList.add(c2);
+		catList.add(c3);
+		Mockito.when(c1.getId()).thenReturn(1);
+		Mockito.when(c2.getId()).thenReturn(2);
+		Mockito.when(c3.getId()).thenReturn(3);
+		Mockito.when(c1.getRented()).thenReturn(false);
+		Mockito.when(c2.getRented()).thenReturn(false);
+		Mockito.when(c3.getRented()).thenReturn(true);
 
-    /** tests for "getCat(int id, ArrayList<Cat> catList)" **/
+		assertTrue(rc.catAvailable(testId, catList));
+	}
+	
+	// when a cat is not available to rent, catAvailable should return false 
+	@Test
+	public void testCatNotAvailable() {
+		int testId = 3;
+		Cat c1 = Mockito.mock(Cat.class);
+		Cat c2 = Mockito.mock(Cat.class);
+		Cat c3 = Mockito.mock(Cat.class);
+		ArrayList<Cat> catList = new ArrayList<Cat>();
+		catList.add(c1);
+		catList.add(c2);
+		catList.add(c3);
+		Mockito.when(c1.getId()).thenReturn(1);
+		Mockito.when(c2.getId()).thenReturn(2);
+		Mockito.when(c3.getId()).thenReturn(3);
+		Mockito.when(c1.getRented()).thenReturn(false);
+		Mockito.when(c2.getRented()).thenReturn(false);
+		Mockito.when(c3.getRented()).thenReturn(true);
+
+		assertFalse(rc.catAvailable(testId, catList));
+	}
+	
+	// test that an empty list of cats returns false when calling catAvailable 
+	@Test
+	public void testCatAvailableEmpty() {
+		ArrayList<Cat> catList = new ArrayList<Cat>();
+		assertFalse(rc.catAvailable(1, catList));
+	}
+	
+    /** 
+	 * TESTS FOR "getCat(int id, ArrayList<Cat> catList)" 
+	 **/
 
 	// test that given a list of cats and an id, return a reference to
 	// the specified cat if a cat with that ID exists
 	@Test
 	public void testReturnReferencedCat() {
 		int testId = 1;
-		Cat mockReturn = Mockito.mock(Cat.class);
+		Cat mockReturn;
 		Cat mockCat1 = Mockito.mock(Cat.class);
 		Cat mockCat2 = Mockito.mock(Cat.class);
 		Cat mockCat3 = Mockito.mock(Cat.class);
@@ -149,6 +229,24 @@ public class RentACatTest {
 
 		mockReturn = rc.getCat(testId, catList);
 		assertSame(mockReturn, mockCat1);
+	}
+	
+	// test that given a list of cats and an id, return null
+	// when id not in the list 
+	@Test
+	public void testGetCatNull() {
+		int testId = 4;
+		Cat c1 = Mockito.mock(Cat.class);
+		Cat c2 = Mockito.mock(Cat.class);
+		Cat c3 = Mockito.mock(Cat.class);
+		ArrayList<Cat> catList = new ArrayList<Cat>();
+		catList.add(c1);
+		catList.add(c2);
+		catList.add(c3);
+		Mockito.when(c1.getId()).thenReturn(1);
+		Mockito.when(c2.getId()).thenReturn(2);
+		Mockito.when(c3.getId()).thenReturn(3);
+		assertNull(rc.getCat(testId, catList));
 	}
 
 
